@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="todoApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Modules test</title>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+
+
+</body>
+<script>
+    angular.module("todoApp.service", [])
+            .value('todos', [
+                {name: 'AngularJS Directives', completed: true, note: 'add notes...'},
+                {name: 'Data binding', completed: true, note: 'add notes...'},
+                {name: '$scope', completed: true, note: 'add notes...'},
+                {name: 'Controllers and Modules', completed: true, note: 'add notes...'},
+                {name: 'Templates and routes', completed: true, note: 'add notes...'},
+                {name: 'Filters and Services', completed: false, note: 'add notes...'},
+                {name: 'Get started with Node/ExpressJS', completed: false, note: 'add notes...'},
+                {name: 'Setup MongoDB database', completed: false, note: 'add notes...'},
+                {name: 'Be awesome!', completed: false, note: 'add notes...'}
+            ]);
+
+    angular.module('todoApp', ['todoApp.service'])
+            .controller('TodoAppController', function ($scope, todos) {
+                $scope.todos = todos;
+            });
+</script>
+
+<!--List todos-->
+<script type="text/ng-template" id="todos.html">
+    <ul>
+        <li ng-repeat="todo in todos">
+            <label>
+                <input type="checkbox"/>
+                <a href="#/{{$index}}">{{todo.name}}</a>
+            </label>
+        </li>
+    </ul>
+</script>
+
+<!--Todo details-->
+<script type="text/ng-template" id="todoDetails.html">
+    <h1>{{todo.name}}</h1>
+    <label>
+        <input type="checkbox"/>
+    </label>
+    <label>
+        <textarea>{{todo.note}}</textarea>
+    </label>
+</script>
+</html>
