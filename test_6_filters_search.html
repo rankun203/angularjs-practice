@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="xmpl">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Modules test</title>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+
+<div ng-controller="XmplController">
+    {{ greeting }}
+</div>
+
+<div ng-controller="XmplTodoController">
+    <ul>
+        <li ng-repeat="todo in todos">
+            <label>
+                <input type="checkbox" ng-model="todo.completed"/>
+                {{todo.name}}
+            </label>
+        </li>
+    </ul>
+</div>
+
+</body>
+<script>
+    angular.module("xmpl.service", [])
+            .value('greeter', {
+                salutation: 'Hello',
+                localize: function (localization) {
+                    this.salutation = localization.salutation;
+                },
+                greet: function (name) {
+                    return this.salutation + ' ' + name + '!';
+                }
+            })
+            .value('user', {
+                load: function (name) {
+                    this.name = name;
+                }
+            })
+            .value('todos', [
+                {name: 'AngularJS Directives', completed: true},
+                {name: 'Data binding', completed: true},
+                {name: '$scope', completed: true},
+                {name: 'Controllers and Modules', completed: true},
+                {name: 'Templates and routes', completed: true},
+                {name: 'Filters and Services', completed: false},
+                {name: 'Get started with Node/ExpressJS', completed: false},
+                {name: 'Setup MongoDB database', completed: false},
+                {name: 'Be awesome!', completed: false}
+            ]);
+
+    angular.module('xmpl.directive', []);
+    angular.module('xmpl.filter', []);
+
+    angular.module('xmpl', ['xmpl.service', 'xmpl.directive', 'xmpl.filter'])
+            .run(function (greeter, user) {
+                greeter.localize({
+                    salutation: 'Bonjour'
+                });
+                user.load('World');
+            })
+            .controller('XmplController', function ($scope, greeter, user) {
+                $scope.greeting = greeter.greet(user.name);
+            })
+            .controller('XmplTodoController', function ($scope, todos) {
+                $scope.todos = todos;
+            });
+</script>
+</html>

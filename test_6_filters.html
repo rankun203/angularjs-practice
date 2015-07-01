@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Modules test</title>
+    <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+
+1) {{ "iMac" | uppercase }} <br/>
+2) {{ 2895 | currency }} <br/>
+3) {{ 1435741942507 | date:"MM/dd/yyyy 'at' h:mma" }} <br/>
+4) {{ ['ca', 'ba', 'bz'] | limitTo: 2 }} <br/>
+5)
+<pre>{{ {'name': 'Adrian', 'last': 'mejia'} | json }}</pre>
+<br/>
+6) {{ [{n: 'Zack'}, {n: 'John'}, {n: 'Ana'}] | orderBy: '-n' | limitTo: 2 }}
+</body>
+</html>
